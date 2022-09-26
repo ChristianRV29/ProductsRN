@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { RootStackParamList } from '../navigation/StackNavigator';
+import { RootStackParamList } from '~src/navigation/StackNavigator';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 

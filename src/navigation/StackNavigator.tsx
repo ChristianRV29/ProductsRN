@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Login, Home, Register } from './../screens/index';
+import { Login, Home, Register } from '~src/screens/index';
 
 export type RootStackParamList = {
   Login: undefined;
