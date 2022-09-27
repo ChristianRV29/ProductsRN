@@ -1,23 +1,23 @@
-import React, { Fragment, useState } from 'react';
-import { Platform, Text } from 'react-native';
+import React, { Fragment, useRef } from 'react';
+import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BackgroundShape } from '~src/components/BackgroundShape/BackgroundShape';
 import { WhiteLogo } from '~src/components/WhiteLogo/WhiteLogo';
 import {
+  ActionButton,
+  ActionButtonText,
   FormContainer,
   FormLabel,
+  FormTextInput,
   FormTitle,
   Wrapper,
-  FormTextInput,
-  LoginButton,
-  LoginButtonText,
 } from './style';
 
 export const Login = () => {
   const { top } = useSafeAreaInsets();
 
-  const [isRegistering, setIsRegistering] = useState(false);
+  const newUserRef = useRef<boolean>(true);
 
   return (
     <Fragment>
@@ -48,11 +48,20 @@ export const Login = () => {
             selectionColor="white"
             underlineColorAndroid="white"
           />
-          {isRegistering ? null : (
-            <LoginButton
-              onPress={() => console.warn('Somebody is trying to login')}>
-              <LoginButtonText>Login</LoginButtonText>
-            </LoginButton>
+          {newUserRef.current ? (
+            <ActionButton
+              onPress={() =>
+                console.log('Somebody is trying to register himself')
+              }>
+              <ActionButtonText>Register</ActionButtonText>
+            </ActionButton>
+          ) : (
+            <ActionButton
+              onPress={() =>
+                console.warn('Somebody is trying to login himself')
+              }>
+              <ActionButtonText>Login</ActionButtonText>
+            </ActionButton>
           )}
         </FormContainer>
       </Wrapper>

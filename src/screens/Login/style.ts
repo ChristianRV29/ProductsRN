@@ -59,7 +59,7 @@ export const FormTextInput = styled.TextInput<{
     operativeSystem === 'android' ? `${TextInputAndroid}` : `${TextInputiOS}`}
 `;
 
-export const LoginButton = styled.TouchableOpacity`
+export const ActionButton = styled.TouchableOpacity`
   align-items: center;
   align-self: flex-end;
   background-color: transparent;
@@ -74,7 +74,7 @@ export const LoginButton = styled.TouchableOpacity`
   width: 150px;
 `;
 
-export const LoginButtonText = styled.Text`
+export const ActionButtonText = styled.Text`
   color: white;
   font-size: 15px;
 `;
