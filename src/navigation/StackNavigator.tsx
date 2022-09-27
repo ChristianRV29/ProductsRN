@@ -7,7 +7,7 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   Home: {
-    message: 'Welcome to Products App';
+    message: string;
   };
 };
 
@@ -22,7 +22,13 @@ export const StackNavigator = () => {
       }}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        initialParams={{
+          message: 'Welcome to Products App',
+        }}
+      />
     </Stack.Navigator>
   );
 };
