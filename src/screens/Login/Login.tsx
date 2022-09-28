@@ -1,10 +1,13 @@
-import React, { Fragment, useRef } from 'react';
-import { Platform } from 'react-native';
+import React, { Fragment } from 'react';
+import { Keyboard, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { BackgroundShape } from '~src/components/BackgroundShape/BackgroundShape';
 import { WhiteLogo } from '~src/components/WhiteLogo/WhiteLogo';
 import { useForm } from '~src/hooks/useForm';
+import { RootStackParamList } from '../../navigation/StackNavigator';
 
 import {
   ActionButton,
@@ -17,7 +20,9 @@ import {
   Wrapper,
 } from './style';
 
-export const Login = () => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
+
+export const Login = ({ navigation }: Props) => {
   const { top } = useSafeAreaInsets();
 
   const {
@@ -30,8 +35,14 @@ export const Login = () => {
   });
 
   const onLogin = () => {
+    Keyboard.dismiss();
+
     console.log('Email:', email);
     console.log('Password:', password);
+
+    navigation.replace('Home', {
+      message: 'Welcome to ProductsApp',
+    });
   };
 
   return (
