@@ -20,7 +20,7 @@ export const Home: React.FC<Props> = ({ route }) => {
 const styles = StyleSheet.create({
   mainWrapper: {
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: '#2ca3da',
     flex: 1,
     justifyContent: 'center',
   },
