@@ -4,6 +4,13 @@ import styled from '@emotion/native';
 
 type OperativeSystem = typeof Platform.OS;
 
+export const CustomKeyboardAvoidingView = styled.KeyboardAvoidingView`
+  display: flex;
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+`;
+
 export const Wrapper = styled.View`
   display: flex;
   flex-direction: column;
