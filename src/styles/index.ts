@@ -66,9 +66,16 @@ export const FormTextInput = styled.TextInput<{
     operativeSystem === 'android' ? `${TextInputAndroid}` : `${TextInputiOS}`}
 `;
 
-export const ActionButton = styled.TouchableOpacity`
+export const ActionButtonsContainer = styled.View`
   align-items: center;
   align-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const ActionButton = styled.TouchableOpacity`
+  align-items: center;
   background-color: transparent;
   border-radius: 15px;
   border: 1px solid white;
@@ -77,7 +84,7 @@ export const ActionButton = styled.TouchableOpacity`
   font-size: 20px;
   height: 35px;
   justify-content: center;
-  margin-top: 15px;
+  margin: 10px 5px;
   width: 150px;
 `;
 
