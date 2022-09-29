@@ -7,10 +7,11 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BackgroundShape } from '~src/components/BackgroundShape/BackgroundShape';
 import { WhiteLogo } from '~src/components/WhiteLogo/WhiteLogo';
 import { useForm } from '~src/hooks/useForm';
-import { RootStackParamList } from '../../navigation/StackNavigator';
+import { RootStackParamList } from '~src/navigation/StackNavigator';
 
 import {
   ActionButton,
+  ActionButtonsContainer,
   ActionButtonText,
   CustomKeyboardAvoidingView,
   FormContainer,
@@ -18,7 +19,7 @@ import {
   FormTextInput,
   FormTitle,
   Wrapper,
-} from './style';
+} from '~src/styles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -80,9 +81,14 @@ export const Login = ({ navigation }: Props) => {
               selectionColor="white"
               underlineColorAndroid="white"
             />
-            <ActionButton onPress={onLogin}>
-              <ActionButtonText>Login</ActionButtonText>
-            </ActionButton>
+            <ActionButtonsContainer>
+              <ActionButton onPress={onLogin}>
+                <ActionButtonText>Register</ActionButtonText>
+              </ActionButton>
+              <ActionButton onPress={onLogin}>
+                <ActionButtonText>Login</ActionButtonText>
+              </ActionButton>
+            </ActionButtonsContainer>
           </FormContainer>
         </Wrapper>
       </CustomKeyboardAvoidingView>
