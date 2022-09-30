@@ -1,6 +1,13 @@
 import React, { createContext, useReducer } from 'react';
 
-import { AuthContextProps, AuthState } from '~src/@types';
+import {
+  AuthContextProps,
+  AuthState,
+  SignInData,
+  SignInResponse,
+} from '~src/@types';
+import cafeApi from '~src/api';
+
 import { authReducer } from './AuthReducer';
 
 const authInitialState: AuthState = {
@@ -16,7 +23,38 @@ export const AuthProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(authReducer, authInitialState);
 
   const logOut = () => {};
-  const signIn = () => {};
+
+  const signIn = async ({ correo, password }: SignInData) => {
+    try {
+      const resp = await cafeApi.post<SignInResponse>('/auth/login', {
+        correo,
+        password,
+      });
+
+      if (resp.data) {
+        const { usuario, token } = resp.data;
+
+        dispatch({
+          type: 'SignUp',
+          payload: {
+            user: usuario,
+            token,
+          },
+        });
+      }
+    } catch (err: any) {
+      dispatch({
+        type: 'AddError',
+        payload: {
+          errorMessage: err.response.data || 'SignUp error',
+        },
+      });
+      console.error(
+        'AuthContext 22 ~ It has happened an error: ',
+        err.response.data,
+      );
+    }
+  };
   const signUp = () => {};
 
   return (

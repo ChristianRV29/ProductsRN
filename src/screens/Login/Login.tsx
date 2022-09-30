@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Keyboard, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -8,6 +8,7 @@ import { BackgroundShape } from '~src/components/BackgroundShape/BackgroundShape
 import { WhiteLogo } from '~src/components/WhiteLogo/WhiteLogo';
 import { useForm } from '~src/hooks/useForm';
 import { RootStackParamList } from '~src/navigation/StackNavigator';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 import {
   ActionButton,
@@ -26,6 +27,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 export const Login = ({ navigation }: Props) => {
   const { top } = useSafeAreaInsets();
 
+  const { signIn } = useContext(AuthContext);
+
   const {
     email,
     password,
@@ -38,12 +41,9 @@ export const Login = ({ navigation }: Props) => {
   const onLogin = () => {
     Keyboard.dismiss();
 
-    console.log('Email:', email);
-    console.log('Password:', password);
-
-    navigation.replace('Home', {
-      message: 'Welcome to ProductsApp',
-    });
+    if (email && password) {
+      signIn({ correo: email, password });
+    }
   };
 
   return (

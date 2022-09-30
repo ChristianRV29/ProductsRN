@@ -3,7 +3,7 @@ import { User } from '../interfaces';
 export type AuthContextProps = {
   errorMessage: string | null;
   logOut: () => void;
-  signIn: () => void;
+  signIn: (data: SignInData) => void;
   signUp: () => void;
   status: Status;
   token: string | null;
@@ -36,3 +36,8 @@ type LogOut = {
 };
 
 export type AuthAction = SignUp | AddError | RemoveError | LogOut;
+
+export type SignInData = {
+  correo: string;
+  password: string;
+};

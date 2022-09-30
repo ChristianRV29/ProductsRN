@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Register"
+      initialRouteName="Login"
       screenOptions={{
         headerShown: false,
       }}>
