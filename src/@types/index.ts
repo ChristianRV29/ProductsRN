@@ -1,2 +1,2 @@
 export type { User } from './interfaces/index';
-export type { Status } from './types/index';
+export type { Status, AuthAction, AuthContextProps } from './types/index';
