@@ -14,12 +14,12 @@ export const authReducer = (
       };
 
     case 'RemoveError':
-      return { ...state, errorMessage: undefined };
+      return { ...state, errorMessage: null };
 
     case 'SignUp':
       return {
         ...state,
-        errorMessage: undefined,
+        errorMessage: null,
         status: 'authenticated',
         token: action.payload.token,
         user: action.payload.user,

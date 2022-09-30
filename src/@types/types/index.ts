@@ -1,7 +1,7 @@
 import { User } from '../interfaces';
 
 export type AuthContextProps = {
-  errorMessage?: string;
+  errorMessage: string | null;
   logOut: () => void;
   signIn: () => void;
   signUp: () => void;
@@ -19,6 +19,7 @@ type SignUp = {
     user: User;
   };
 };
+
 type AddError = {
   readonly type: 'AddError';
   payload: {

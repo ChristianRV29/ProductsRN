@@ -10,7 +10,7 @@ export interface User {
 }
 
 export interface AuthState {
-  errorMessage: string | undefined;
+  errorMessage: string | null;
   status: Status;
   token: string | null;
   user: User | null;
