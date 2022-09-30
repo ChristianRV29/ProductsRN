@@ -1,15 +1,34 @@
-import { AuthAction, Status } from '~src/@types';
+import { AuthAction, AuthState } from '~src/@types';
 
-export interface AuthState {
-    status: Status;
-    token: string | undefined;
-}
-
-export const authReducer = (state: any, action: AuthAction): AuthState => {
+export const authReducer = (
+  state: AuthState,
+  action: AuthAction,
+): AuthState => {
   switch (action.type) {
-    case 'SignUp'
+    case 'AddError':
+      return {
+        ...state,
+        errorMessage: action.payload.errorMessage,
+        status: 'not-authenticated',
+        token: null,
+      };
+
+    case 'RemoveError':
+      return { ...state, errorMessage: undefined };
+
+    case 'SignUp':
+      return {
+        ...state,
+        errorMessage: undefined,
+        status: 'authenticated',
+        token: action.payload.token,
+        user: action.payload.user,
+      };
+
+    case 'LogOut':
+      return { ...state, status: 'not-authenticated', token: null, user: null };
 
     default:
-      break;
+      return state;
   }
 };
