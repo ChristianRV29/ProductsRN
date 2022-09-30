@@ -43,6 +43,12 @@ export const AuthProvider = ({ children }: any) => {
         });
       }
     } catch (err: any) {
+      dispatch({
+        type: 'AddError',
+        payload: {
+          errorMessage: err.response.data || 'SignUp error',
+        },
+      });
       console.error(
         'AuthContext 22 ~ It has happened an error: ',
         err.response.data,
