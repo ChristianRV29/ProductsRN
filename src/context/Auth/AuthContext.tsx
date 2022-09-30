@@ -7,6 +7,7 @@ import {
   SignInResponse,
 } from '~src/@types';
 import cafeApi from '~src/api';
+
 import { authReducer } from './AuthReducer';
 
 const authInitialState: AuthState = {
@@ -23,13 +24,29 @@ export const AuthProvider = ({ children }: any) => {
 
   const logOut = () => {};
 
-  const signIn = async (data: SignInData) => {
+  const signIn = async ({ correo, password }: SignInData) => {
     try {
-      const resp = await cafeApi.post<SignInResponse>('/auth/login', data);
+      const resp = await cafeApi.post<SignInResponse>('/auth/login', {
+        correo,
+        password,
+      });
 
-      console.log('SignIn response: ', resp.data);
-    } catch (err) {
-      console.error('AuthContext 22 ~ It has happened an error: ', err);
+      if (resp.data) {
+        const { usuario, token } = resp.data;
+
+        dispatch({
+          type: 'SignUp',
+          payload: {
+            user: usuario,
+            token,
+          },
+        });
+      }
+    } catch (err: any) {
+      console.error(
+        'AuthContext 22 ~ It has happened an error: ',
+        err.response.data,
+      );
     }
   };
   const signUp = () => {};
