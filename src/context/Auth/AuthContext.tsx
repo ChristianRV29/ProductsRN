@@ -55,10 +55,14 @@ export const AuthProvider = ({ children }: any) => {
       );
     }
   };
+
   const signUp = () => {};
 
+  const removeError = () => dispatch({ type: 'RemoveError' });
+
   return (
-    <AuthContext.Provider value={{ ...state, signIn, signUp, logOut }}>
+    <AuthContext.Provider
+      value={{ ...state, signIn, signUp, logOut, removeError }}>
       {children}
     </AuthContext.Provider>
   );

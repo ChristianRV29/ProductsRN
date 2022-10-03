@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useContext, useEffect } from 'react';
 import { Alert, Keyboard, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -27,11 +28,16 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 export const Login = ({ navigation }: Props) => {
   const { top } = useSafeAreaInsets();
 
-  const { signIn, errorMessage } = useContext(AuthContext);
+  const { signIn, errorMessage, removeError } = useContext(AuthContext);
 
   useEffect(() => {
     if (errorMessage) {
-      Alert.alert('Wrong login', errorMessage);
+      Alert.alert('Wrong login', errorMessage, [
+        {
+          text: 'Ok',
+          onPress: removeError,
+        },
+      ]);
     }
   }, [errorMessage]);
 
