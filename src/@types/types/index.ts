@@ -5,6 +5,7 @@ export type AuthContextProps = {
   logOut: () => void;
   signIn: (data: SignInData) => void;
   signUp: () => void;
+  removeError: () => void;
   status: Status;
   token: string | null;
   user: User | null;

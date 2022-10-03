@@ -26,13 +26,13 @@ export const AuthProvider = ({ children }: any) => {
 
   const signIn = async ({ correo, password }: SignInData) => {
     try {
-      const resp = await cafeApi.post<SignInResponse>('/auth/login', {
+      const { data } = await cafeApi.post<SignInResponse>('/auth/login', {
         correo,
         password,
       });
 
-      if (resp.data) {
-        const { usuario, token } = resp.data;
+      if (data) {
+        const { usuario, token } = data;
 
         dispatch({
           type: 'SignUp',
@@ -46,19 +46,23 @@ export const AuthProvider = ({ children }: any) => {
       dispatch({
         type: 'AddError',
         payload: {
-          errorMessage: err.response.data || 'SignUp error',
+          errorMessage: err.response.data.msg || 'Wrong information',
         },
       });
       console.error(
-        'AuthContext 22 ~ It has happened an error: ',
+        'AuthContext signIn ~ It has happened an error: ',
         err.response.data,
       );
     }
   };
+
   const signUp = () => {};
 
+  const removeError = () => dispatch({ type: 'RemoveError' });
+
   return (
-    <AuthContext.Provider value={{ ...state, signIn, signUp, logOut }}>
+    <AuthContext.Provider
+      value={{ ...state, signIn, signUp, logOut, removeError }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,5 +1,6 @@
-import React, { Fragment, useContext } from 'react';
-import { Keyboard, Platform } from 'react-native';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { Fragment, useContext, useEffect } from 'react';
+import { Alert, Keyboard, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -27,7 +28,18 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 export const Login = ({ navigation }: Props) => {
   const { top } = useSafeAreaInsets();
 
-  const { signIn } = useContext(AuthContext);
+  const { signIn, errorMessage, removeError } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (errorMessage) {
+      Alert.alert('Wrong login', errorMessage, [
+        {
+          text: 'Ok',
+          onPress: removeError,
+        },
+      ]);
+    }
+  }, [errorMessage]);
 
   const {
     email,
@@ -82,7 +94,7 @@ export const Login = ({ navigation }: Props) => {
               underlineColorAndroid="white"
             />
             <ActionButtonsContainer>
-              <ActionButton onPress={onLogin}>
+              <ActionButton onPress={() => navigation.navigate('Register')}>
                 <ActionButtonText>Register</ActionButtonText>
               </ActionButton>
               <ActionButton onPress={onLogin}>
