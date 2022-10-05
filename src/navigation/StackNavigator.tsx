@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Login, Home, Register } from '~src/screens/index';
-import { AuthContext } from '../context/auth/AuthContext';
+import { AuthContext } from '~src/context/auth/AuthContext';
 
 export type RootStackParamList = {
   Login: undefined;
