@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { Logo, LogoContainer } from './style';
 
-export const WhiteLogo = () => {
+export const WhiteLogo: FC = () => {
   return (
     <LogoContainer>
       <Logo
