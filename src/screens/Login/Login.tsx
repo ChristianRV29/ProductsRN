@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { FC, Fragment, useContext, useEffect } from 'react';
 import { Alert, Keyboard, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -25,7 +25,7 @@ import {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-export const Login = ({ navigation }: Props) => {
+export const Login: FC<Props> = ({ navigation }) => {
   const { top } = useSafeAreaInsets();
 
   const { signIn, errorMessage, removeError } = useContext(AuthContext);
