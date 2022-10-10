@@ -7,7 +7,7 @@ import {
   SignInResponse,
 } from '~src/@types';
 import cafeApi from '~src/api';
-import { storageData } from '~src/utils/storage';
+import { storeData } from '~src/utils/storage';
 
 import { authReducer } from './AuthReducer';
 
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: any) => {
           },
         });
 
-        storageData('@Token', JSON.stringify(token)).then(val =>
+        storeData('@Token', JSON.stringify(token)).then(val =>
           console.log(val),
         );
       }
