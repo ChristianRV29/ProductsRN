@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
 
 import {
   AuthContextProps,
@@ -23,6 +23,12 @@ export const AuthContext = createContext({} as AuthContextProps);
 export const AuthProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(authReducer, authInitialState);
 
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  const checkToken = () => {};
+
   const logOut = () => {};
 
   const signIn = async ({ correo, password }: SignInData) => {
@@ -43,9 +49,7 @@ export const AuthProvider = ({ children }: any) => {
           },
         });
 
-        storeData('@Token', JSON.stringify(token)).then(val =>
-          console.log(val),
-        );
+        storeData('@Token', JSON.stringify(token));
       }
     } catch (err: any) {
       dispatch({

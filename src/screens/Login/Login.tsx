@@ -9,7 +9,7 @@ import { BackgroundShape } from '~src/components/BackgroundShape/BackgroundShape
 import { WhiteLogo } from '~src/components/WhiteLogo/WhiteLogo';
 import { useForm } from '~src/hooks/useForm';
 import { RootStackParamList } from '~src/navigation/StackNavigator';
-import { AuthContext } from '../../context/auth/AuthContext';
+import { AuthContext } from '~src/context/auth/AuthContext';
 
 import {
   ActionButton,
