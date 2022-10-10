@@ -1,5 +1,4 @@
 import React, { createContext, useReducer } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   AuthContextProps,
@@ -43,14 +42,6 @@ export const AuthProvider = ({ children }: any) => {
             token,
           },
         });
-
-        await storageData('@UserToken', JSON.stringify(token))
-          .then(value => {
-            console.log(value);
-          })
-          .catch(err => {
-            console.log(err);
-          });
       }
     } catch (err: any) {
       dispatch({
@@ -59,10 +50,7 @@ export const AuthProvider = ({ children }: any) => {
           errorMessage: err?.response?.data?.msg || 'Wrong information',
         },
       });
-      console.error(
-        'AuthContext signIn ~ It has happened an error: ',
-        err.response.data,
-      );
+      console.error('AuthContext signIn ~ It has happened an error: ', err);
     }
   };
 
