@@ -10,6 +10,7 @@ import {
 import cafeApi from '~src/api';
 
 import { authReducer } from './AuthReducer';
+import { storageData } from '~src/utils/storage';
 
 const authInitialState: AuthState = {
   errorMessage: null,
@@ -42,12 +43,20 @@ export const AuthProvider = ({ children }: any) => {
             token,
           },
         });
+
+        await storageData('@UserToken', JSON.stringify(token))
+          .then(value => {
+            console.log(value);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
     } catch (err: any) {
       dispatch({
         type: 'AddError',
         payload: {
-          errorMessage: err.response.data.msg || 'Wrong information',
+          errorMessage: err?.response?.data?.msg || 'Wrong information',
         },
       });
       console.error(
