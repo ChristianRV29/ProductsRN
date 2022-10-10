@@ -15,3 +15,19 @@ export const storeData = (key: string, value: string): Promise<boolean> => {
       });
   });
 };
+
+export const getData = (key: string): Promise<unknown> => {
+  return new Promise(async (resolve, reject) => {
+    await AsyncStorage.getItem(key)
+      .then((value: string | null) => {
+        if (value) {
+          resolve(JSON.parse(value));
+        } else {
+          reject(null);
+        }
+      })
+      .catch((err: any) => {
+        reject(err.message || err);
+      });
+  });
+};

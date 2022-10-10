@@ -1,3 +1,4 @@
+/* eslint-disable curly */
 import React, { createContext, useEffect, useReducer } from 'react';
 
 import {
@@ -10,6 +11,7 @@ import cafeApi from '~src/api';
 import { storeData } from '~src/utils/storage';
 
 import { authReducer } from './AuthReducer';
+import { getData } from '../../utils/storage/index';
 
 const authInitialState: AuthState = {
   errorMessage: null,
@@ -27,7 +29,11 @@ export const AuthProvider = ({ children }: any) => {
     checkToken();
   }, []);
 
-  const checkToken = () => {};
+  const checkToken = () => {
+    getData('@user_token').then(token => {
+      if (!token) dispatch({ type: 'LogOut' });
+    });
+  };
 
   const logOut = () => {};
 
@@ -49,7 +55,7 @@ export const AuthProvider = ({ children }: any) => {
           },
         });
 
-        storeData('@Token', JSON.stringify(token));
+        storeData('@user_token', JSON.stringify(token));
       }
     } catch (err: any) {
       dispatch({
