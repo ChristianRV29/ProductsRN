@@ -7,9 +7,9 @@ import {
   SignInResponse,
 } from '~src/@types';
 import cafeApi from '~src/api';
+import { storageData } from '~src/utils/storage';
 
 import { authReducer } from './AuthReducer';
-import { storageData } from '~src/utils/storage';
 
 const authInitialState: AuthState = {
   errorMessage: null,
@@ -42,6 +42,10 @@ export const AuthProvider = ({ children }: any) => {
             token,
           },
         });
+
+        storageData('@Token', JSON.stringify(token)).then(val =>
+          console.log(val),
+        );
       }
     } catch (err: any) {
       dispatch({
