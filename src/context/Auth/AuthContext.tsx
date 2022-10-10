@@ -7,6 +7,7 @@ import {
   SignInResponse,
 } from '~src/@types';
 import cafeApi from '~src/api';
+import { storeData } from '~src/utils/storage';
 
 import { authReducer } from './AuthReducer';
 
@@ -41,18 +42,19 @@ export const AuthProvider = ({ children }: any) => {
             token,
           },
         });
+
+        storeData('@Token', JSON.stringify(token)).then(val =>
+          console.log(val),
+        );
       }
     } catch (err: any) {
       dispatch({
         type: 'AddError',
         payload: {
-          errorMessage: err.response.data.msg || 'Wrong information',
+          errorMessage: err?.response?.data?.msg || 'Wrong information',
         },
       });
-      console.error(
-        'AuthContext signIn ~ It has happened an error: ',
-        err.response.data,
-      );
+      console.error('AuthContext signIn ~ It has happened an error: ', err);
     }
   };
 
