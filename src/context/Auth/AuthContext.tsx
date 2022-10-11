@@ -40,6 +40,8 @@ export const AuthProvider = ({ children }: any) => {
         },
       });
 
+      await storeData('@user_token', data.token);
+
       dispatch({
         type: 'SignUp',
         payload: { token: data.token, user: data.usuario },
