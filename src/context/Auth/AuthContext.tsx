@@ -31,9 +31,12 @@ export const AuthProvider = ({ children }: any) => {
   const checkToken = async () => {
     const token = await getData('@user_token');
 
-    if (!token) return dispatch({ type: 'LogOut' });
+    if (!token) {
+      return dispatch({ type: 'LogOut' });
+    }
 
     if (token) {
+      console.log('Token: ', token);
       const { data } = await cafeApi.get<SignInResponse>('/auth', {
         headers: {
           'x-token': token,
@@ -68,10 +71,7 @@ export const AuthProvider = ({ children }: any) => {
             token,
           },
         });
-
-        console.log('Token: ', token);
-
-        await storeData('@user_token', JSON.stringify(token));
+        await storeData('@user_token', data.token);
       }
     } catch (err: any) {
       dispatch({
