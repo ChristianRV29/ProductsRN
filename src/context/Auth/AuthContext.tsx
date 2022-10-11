@@ -1,4 +1,5 @@
-import React, { createContext, useReducer } from 'react';
+/* eslint-disable curly */
+import React, { createContext, useEffect, useReducer } from 'react';
 
 import {
   AuthContextProps,
@@ -6,8 +7,8 @@ import {
   SignInData,
   SignInResponse,
 } from '~src/@types';
-import cafeApi from '~src/api';
-import { storeData } from '~src/utils/storage';
+import cafeApi from '~src/api/index';
+import { storeData, getData } from '~src/utils/storage';
 
 import { authReducer } from './AuthReducer';
 
@@ -22,6 +23,29 @@ export const AuthContext = createContext({} as AuthContextProps);
 
 export const AuthProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(authReducer, authInitialState);
+
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  const checkToken = async () => {
+    const token = await getData('@user_token');
+
+    if (!token) return dispatch({ type: 'LogOut' });
+
+    if (token) {
+      const { data } = await cafeApi.get<SignInResponse>('/auth', {
+        headers: {
+          'x-token': token,
+        },
+      });
+
+      dispatch({
+        type: 'SignUp',
+        payload: { token: data.token, user: data.usuario },
+      });
+    }
+  };
 
   const logOut = () => {};
 
@@ -43,9 +67,9 @@ export const AuthProvider = ({ children }: any) => {
           },
         });
 
-        storeData('@Token', JSON.stringify(token)).then(val =>
-          console.log(val),
-        );
+        console.log('Token: ', token);
+
+        await storeData('@user_token', JSON.stringify(token));
       }
     } catch (err: any) {
       dispatch({
