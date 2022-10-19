@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Login, Home, Register } from '~src/screens/index';
 import { AuthContext } from '~src/context/auth/AuthContext';
+import { Loading } from '~src/screens/Loading/Loading';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -17,9 +18,12 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const StackNavigator = () => {
   const { status } = useContext(AuthContext);
 
+  if (status === 'checking') {
+    return <Loading />;
+  }
+
   return (
     <Stack.Navigator
-      initialRouteName="Login"
       screenOptions={{
         headerShown: false,
       }}>

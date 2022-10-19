@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 import React, { createContext, useEffect, useReducer } from 'react';
 
 import {
@@ -31,23 +30,27 @@ export const AuthProvider = ({ children }: any) => {
   const checkToken = async () => {
     const token = await getData('@user_token');
 
-    if (!token) return dispatch({ type: 'LogOut' });
-
-    if (token) {
-      const { data } = await cafeApi.get<SignInResponse>('/auth', {
-        headers: {
-          'x-token': token,
-        },
-      });
-
-      dispatch({
-        type: 'SignUp',
-        payload: { token: data.token, user: data.usuario },
-      });
+    if (!token) {
+      return dispatch({ type: 'LogOut' });
     }
+
+    const { data } = await cafeApi.get<SignInResponse>('/auth', {
+      headers: {
+        'x-token': token,
+      },
+    });
+
+    await storeData('@user_token', data.token);
+
+    dispatch({
+      type: 'SignUp',
+      payload: { token: data.token, user: data.usuario },
+    });
   };
 
-  const logOut = () => {};
+  const logOut = () => {
+    dispatch({ type: 'LogOut' });
+  };
 
   const signIn = async ({ correo, password }: SignInData) => {
     try {
@@ -66,10 +69,7 @@ export const AuthProvider = ({ children }: any) => {
             token,
           },
         });
-
-        console.log('Token: ', token);
-
-        await storeData('@user_token', JSON.stringify(token));
+        await storeData('@user_token', data.token);
       }
     } catch (err: any) {
       dispatch({

@@ -2,6 +2,10 @@ import { Platform } from 'react-native';
 
 import styled from '@emotion/native';
 
+/*
+  This styles will be shared among a few screens (Login and Register)
+*/
+
 type OperativeSystem = typeof Platform.OS;
 
 export const CustomKeyboardAvoidingView = styled.KeyboardAvoidingView`
