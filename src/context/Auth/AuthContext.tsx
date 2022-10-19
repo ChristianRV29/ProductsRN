@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 import React, { createContext, useEffect, useReducer } from 'react';
 
 import {
@@ -35,24 +34,23 @@ export const AuthProvider = ({ children }: any) => {
       return dispatch({ type: 'LogOut' });
     }
 
-    if (token) {
-      console.log('Token: ', token);
-      const { data } = await cafeApi.get<SignInResponse>('/auth', {
-        headers: {
-          'x-token': token,
-        },
-      });
+    const { data } = await cafeApi.get<SignInResponse>('/auth', {
+      headers: {
+        'x-token': token,
+      },
+    });
 
-      await storeData('@user_token', data.token);
+    await storeData('@user_token', data.token);
 
-      dispatch({
-        type: 'SignUp',
-        payload: { token: data.token, user: data.usuario },
-      });
-    }
+    dispatch({
+      type: 'SignUp',
+      payload: { token: data.token, user: data.usuario },
+    });
   };
 
-  const logOut = () => {};
+  const logOut = () => {
+    dispatch({ type: 'LogOut' });
+  };
 
   const signIn = async ({ correo, password }: SignInData) => {
     try {

@@ -5,7 +5,7 @@ import { ActivityIndicator } from 'react-native';
 export const Loading = () => {
   return (
     <Wrapper>
-      <ActivityIndicator size={30} color={'#2ca3da'} />
+      <ActivityIndicator size={50} color={'#2ca3da'} />
     </Wrapper>
   );
 };
