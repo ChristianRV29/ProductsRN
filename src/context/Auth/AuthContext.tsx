@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useEffect, useReducer } from 'react';
 
 import {
@@ -7,7 +8,6 @@ import {
   SignInResponse,
 } from '~src/@types';
 import cafeApi from '~src/api/index';
-import { storeData, getData } from '~src/utils/storage';
 
 import { authReducer } from './AuthReducer';
 
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: any) => {
   }, []);
 
   const checkToken = async () => {
-    const token = await getData('@user_token');
+    const token = await AsyncStorage.getItem('@user_token');
 
     if (!token) {
       return dispatch({ type: 'LogOut' });
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: any) => {
       },
     });
 
-    await storeData('@user_token', data.token);
+    await AsyncStorage.setItem('@user_token', data.token);
 
     dispatch({
       type: 'SignUp',
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }: any) => {
             token,
           },
         });
-        await storeData('@user_token', data.token);
+        await AsyncStorage.setItem('@user_token', data.token);
       }
     } catch (err: any) {
       dispatch({
