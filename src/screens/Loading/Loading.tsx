@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
