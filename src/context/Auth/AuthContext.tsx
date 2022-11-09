@@ -28,29 +28,35 @@ export const AuthProvider = ({ children }: any) => {
   }, []);
 
   const checkToken = async () => {
-    const token = await AsyncStorage.getItem('@user_token');
+    try {
+      const token = await AsyncStorage.getItem('@user_token');
 
-    if (!token) {
-      return dispatch({ type: 'LogOut' });
+      if (!token) {
+        return dispatch({ type: 'LogOut' });
+      }
+
+      const { data } = await cafeApi.get<SignInResponse>('/auth', {
+        headers: {
+          'x-token': token,
+        },
+      });
+
+      await AsyncStorage.setItem('@user_token', data.token);
+
+      dispatch({
+        type: 'SignUp',
+        payload: { token: data.token, user: data.usuario },
+      });
+    } catch (err: any) {
+      dispatch({ type: 'LogOut' });
+      console.error(
+        'AuthContext checkToken ~ It has happened an error:',
+        err.message || err,
+      );
     }
-
-    const { data } = await cafeApi.get<SignInResponse>('/auth', {
-      headers: {
-        'x-token': token,
-      },
-    });
-
-    await AsyncStorage.setItem('@user_token', data.token);
-
-    dispatch({
-      type: 'SignUp',
-      payload: { token: data.token, user: data.usuario },
-    });
   };
 
-  const logOut = () => {
-    dispatch({ type: 'LogOut' });
-  };
+  const logOut = () => dispatch({ type: 'LogOut' });
 
   const signIn = async ({ correo, password }: SignInData) => {
     try {
@@ -78,7 +84,10 @@ export const AuthProvider = ({ children }: any) => {
           errorMessage: err?.response?.data?.msg || 'Wrong information',
         },
       });
-      console.error('AuthContext signIn ~ It has happened an error: ', err);
+      console.error(
+        'AuthContext signIn ~ It has happened an error: ',
+        err.message,
+      );
     }
   };
 
