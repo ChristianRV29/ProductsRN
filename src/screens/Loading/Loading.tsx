@@ -6,15 +6,17 @@ import styled from '@emotion/native';
 import { AuthContext } from '~src/context/auth/AuthContext';
 
 export const Loading = () => {
-  const { logOut } = useContext(AuthContext);
+  const { status, logOut } = useContext(AuthContext);
 
   useEffect(() => {
-    const timerId = setTimeout(() => {
-      logOut();
+    const intervalId = setTimeout(() => {
+      if (status !== 'checking') {
+        logOut();
+      }
     }, 5000);
 
     return () => {
-      clearTimeout(timerId);
+      clearTimeout(intervalId);
     };
   }, []);
 

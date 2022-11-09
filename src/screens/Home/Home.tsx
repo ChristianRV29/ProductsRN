@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import styled from '@emotion/native';
 
 import { RootStackParamList } from '~src/navigation/StackNavigator';
 import { AuthContext } from '~src/context/auth/AuthContext';
@@ -14,29 +14,39 @@ export const Home: FC<Props> = ({ route }) => {
   const { logOut } = useContext(AuthContext);
 
   return (
-    <View style={styles.mainWrapper}>
-      <Text style={styles.message}>{message}</Text>
-      <TouchableOpacity onPress={logOut}>
-        <Text>Logout</Text>
-      </TouchableOpacity>
-    </View>
+    <Wrapper>
+      <MessageText>{message}</MessageText>
+      <LogOutButton onPress={logOut}>
+        <LogoutButtonText>Logout</LogoutButtonText>
+      </LogOutButton>
+    </Wrapper>
   );
 };
 
-const styles = StyleSheet.create({
-  mainWrapper: {
-    alignItems: 'center',
-    backgroundColor: '#2ca3da',
-    flex: 1,
-    justifyContent: 'center',
-  },
-  message: {
-    color: 'white',
-    fontSize: 20,
-  },
+const Wrapper = styled.View`
+  align-items: center;
+  background-color: #2ca3da;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+`;
 
-  button: {
-    height: 55,
-    width: 100,
-  },
-});
+const MessageText = styled.Text`
+  color: white;
+  font-size: 20px;
+  margin-bottom: 10px;
+`;
+
+const LogOutButton = styled.TouchableOpacity`
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid white;
+  height: 30px;
+  justify-content: center;
+  width: 100px;
+`;
+
+const LogoutButtonText = styled.Text`
+  font-size: 15px;
+  color: white;
+`;
