@@ -56,7 +56,11 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  const logOut = () => dispatch({ type: 'LogOut' });
+  const logOut = async () => {
+    await AsyncStorage.removeItem('@user_token');
+
+    dispatch({ type: 'LogOut' });
+  };
 
   const signIn = async ({ correo, password }: SignInData) => {
     try {
