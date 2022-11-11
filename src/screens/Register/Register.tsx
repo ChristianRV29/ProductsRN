@@ -1,5 +1,6 @@
-import React, { FC, Fragment, useContext } from 'react';
-import { Keyboard, Platform } from 'react-native';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { FC, Fragment, useContext, useEffect } from 'react';
+import { Alert, Keyboard, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -27,7 +28,18 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 export const Register: FC<Props> = () => {
   const { top } = useSafeAreaInsets();
 
-  const { signUp } = useContext(AuthContext);
+  const { signUp, errorMessage, removeError } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (errorMessage) {
+      Alert.alert('Wrong register', errorMessage, [
+        {
+          text: 'Ok',
+          onPress: removeError,
+        },
+      ]);
+    }
+  }, [errorMessage]);
 
   const {
     name,
