@@ -87,13 +87,12 @@ export const AuthProvider = ({ children }: any) => {
       dispatch({
         type: 'AddError',
         payload: {
-          errorMessage: err?.response?.data?.msg || err?.message,
+          errorMessage:
+            err?.response?.data?.msg ||
+            err?.response?.data?.errors[0]?.msg ||
+            'Check the login information',
         },
       });
-      console.error(
-        'AuthContext signIn ~ It has happened an error: ',
-        err.message,
-      );
     }
   };
 
@@ -119,14 +118,12 @@ export const AuthProvider = ({ children }: any) => {
       dispatch({
         type: 'AddError',
         payload: {
-          errorMessage: err?.message || 'Wrong information',
+          errorMessage:
+            err?.response?.data?.msg ||
+            err?.response?.data?.errors[0]?.msg ||
+            'Check the login information',
         },
       });
-
-      console.error(
-        'AuthContext signUp ~ It has happened an error: ',
-        err.message,
-      );
     }
   };
 
