@@ -6,7 +6,9 @@ import {
   AuthState,
   SignInData,
   SignInResponse,
+  RegisterData,
 } from '~src/@types';
+
 import cafeApi from '~src/api/index';
 
 import { authReducer } from './AuthReducer';
@@ -85,7 +87,7 @@ export const AuthProvider = ({ children }: any) => {
       dispatch({
         type: 'AddError',
         payload: {
-          errorMessage: err?.response?.data?.msg || 'Wrong information',
+          errorMessage: err?.response?.data?.msg || err?.message,
         },
       });
       console.error(
@@ -95,7 +97,38 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  const signUp = () => {};
+  const signUp = async (userData: RegisterData) => {
+    try {
+      const { data } = await cafeApi.post<SignInResponse>('/usuarios', {
+        ...userData,
+      });
+
+      if (data) {
+        const { usuario, token } = data;
+
+        dispatch({
+          type: 'SignUp',
+          payload: {
+            user: usuario,
+            token,
+          },
+        });
+        await AsyncStorage.setItem('@user_token', data.token);
+      }
+    } catch (err: any) {
+      dispatch({
+        type: 'AddError',
+        payload: {
+          errorMessage: err?.message || 'Wrong information',
+        },
+      });
+
+      console.error(
+        'AuthContext signUp ~ It has happened an error: ',
+        err.message,
+      );
+    }
+  };
 
   const removeError = () => dispatch({ type: 'RemoveError' });
 
