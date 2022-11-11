@@ -1,4 +1,10 @@
-export type { User, AuthState, SignInResponse } from './interfaces/index';
+export type {
+  User,
+  AuthState,
+  SignInResponse,
+  RegisterData,
+} from './interfaces/index';
+
 export type {
   Status,
   AuthAction,
