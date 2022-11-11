@@ -1,10 +1,10 @@
-import { User } from '../interfaces';
+import { RegisterData, User } from './../interfaces';
 
 export type AuthContextProps = {
   errorMessage: string | null;
   logOut: () => void;
   signIn: (data: SignInData) => void;
-  signUp: () => void;
+  signUp: (data: RegisterData) => void;
   removeError: () => void;
   status: Status;
   token: string | null;

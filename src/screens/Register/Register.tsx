@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { FC, Fragment, useContext } from 'react';
 import { Keyboard, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -20,11 +20,14 @@ import {
   FormTitle,
   Wrapper,
 } from '~src/styles';
+import { AuthContext } from '~src/context/auth/AuthContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
-export const Register = ({ navigation }: Props) => {
+export const Register: FC<Props> = () => {
   const { top } = useSafeAreaInsets();
+
+  const { signUp } = useContext(AuthContext);
 
   const {
     name,
@@ -40,12 +43,9 @@ export const Register = ({ navigation }: Props) => {
   const onRegister = () => {
     Keyboard.dismiss();
 
-    console.log('Email:', email);
-    console.log('Password:', password);
-
-    navigation.replace('Home', {
-      message: 'Welcome to ProductsApp',
-    });
+    if (name && email && password) {
+      signUp({ nombre: name, correo: email, password, rol: 'USER_ROLE' });
+    }
   };
 
   return (

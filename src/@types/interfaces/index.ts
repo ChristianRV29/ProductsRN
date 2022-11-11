@@ -1,4 +1,4 @@
-import { Status } from '../types';
+import { SignInData, Status } from '../types';
 
 export interface User {
   rol: string;
@@ -18,4 +18,8 @@ export interface AuthState {
 export interface SignInResponse {
   usuario: User;
   token: string;
+}
+export interface RegisterData extends SignInData {
+  nombre: string;
+  rol: 'ADMIN_ROLE' | 'USER_ROLE';
 }
