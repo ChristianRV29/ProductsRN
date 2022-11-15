@@ -12,4 +12,5 @@ export type {
   AuthContextProps,
   SignInData,
   ProductsContextProps,
+  ProductsStackParamsList,
 } from './types/index';

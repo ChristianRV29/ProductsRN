@@ -56,3 +56,8 @@ export type ProductsContextProps = {
   loadProductById: (productId: string) => Promise<Producto>;
   updloadProductImage: (data: any, productId: string) => Promise<void>;
 };
+
+export type ProductsStackParamsList = {
+  Products: undefined;
+  Product: undefined;
+};
