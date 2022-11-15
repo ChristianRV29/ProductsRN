@@ -1,4 +1,4 @@
-import { RegisterData, User } from './../interfaces';
+import { Producto, RegisterData, User } from './../interfaces';
 
 export type AuthContextProps = {
   errorMessage: string | null;
@@ -41,4 +41,18 @@ export type AuthAction = SignUp | AddError | RemoveError | LogOut;
 export type SignInData = {
   correo: string;
   password: string;
+};
+
+export type ProductsContextProps = {
+  products: Producto[];
+  loadProducts: () => Promise<void>;
+  addProduct: (categoryId: string, productName: string) => Promise<void>;
+  updateProduct: (
+    categoryId: string,
+    productName: string,
+    productId: string,
+  ) => Promise<void>;
+  deleteProduct: (productId: string) => Promise<void>;
+  loadProductById: (productId: string) => Promise<Producto>;
+  updloadProductImage: (data: any, productId: string) => Promise<void>;
 };

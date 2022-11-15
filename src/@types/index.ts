@@ -11,4 +11,5 @@ export type {
   AuthAction,
   AuthContextProps,
   SignInData,
+  ProductsContextProps,
 } from './types/index';
