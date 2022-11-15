@@ -3,6 +3,7 @@ export type {
   AuthState,
   SignInResponse,
   RegisterData,
+  Producto,
 } from './interfaces/index';
 
 export type {
@@ -10,4 +11,5 @@ export type {
   AuthAction,
   AuthContextProps,
   SignInData,
+  ProductsContextProps,
 } from './types/index';
