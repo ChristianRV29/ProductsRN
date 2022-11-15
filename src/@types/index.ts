@@ -3,6 +3,7 @@ export type {
   AuthState,
   SignInResponse,
   RegisterData,
+  Producto,
 } from './interfaces/index';
 
 export type {
