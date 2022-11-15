@@ -5,13 +5,16 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { StackNavigator } from '~src/navigation/StackNavigator';
 import { AuthProvider } from '~src/context/auth/AuthContext';
+import { ProductsProvider } from '~src/context/products/ProductContext';
 
 const App = () => {
   return (
     <AuthProvider>
-      <NavigationContainer>
-        <StackNavigator />
-      </NavigationContainer>
+      <ProductsProvider>
+        <NavigationContainer>
+          <StackNavigator />
+        </NavigationContainer>
+      </ProductsProvider>
     </AuthProvider>
   );
 };
