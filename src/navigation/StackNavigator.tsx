@@ -1,9 +1,10 @@
 import React, { Fragment, useContext } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Login, Home, Register } from '~src/screens/index';
+import { Login, Register } from '~src/screens/index';
 import { AuthContext } from '~src/context/auth/AuthContext';
 import { Loading } from '~src/screens/Loading/Loading';
+import { ProductsNavigator } from '~src/navigation/ProductsNavigator';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -11,9 +12,10 @@ export type RootStackParamList = {
   Home: {
     message: string;
   };
+  ProductsNavigator: undefined;
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
 export const StackNavigator = () => {
   const { status } = useContext(AuthContext);
@@ -23,24 +25,18 @@ export const StackNavigator = () => {
   }
 
   return (
-    <Stack.Navigator
+    <Navigator
       screenOptions={{
         headerShown: false,
       }}>
       {status !== 'authenticated' ? (
         <Fragment>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
+          <Screen name="Login" component={Login} />
+          <Screen name="Register" component={Register} />
         </Fragment>
       ) : (
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          initialParams={{
-            message: 'Welcome to Products App',
-          }}
-        />
+        <Screen name="ProductsNavigator" component={ProductsNavigator} />
       )}
-    </Stack.Navigator>
+    </Navigator>
   );
 };

@@ -9,7 +9,10 @@ const { Navigator, Screen } =
 
 export const ProductsNavigator = () => {
   return (
-    <Navigator>
+    <Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Screen name="Products" component={Products} />
       <Screen name="Product" component={Product} />
     </Navigator>
