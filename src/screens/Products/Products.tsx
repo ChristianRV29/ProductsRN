@@ -1,18 +1,23 @@
 import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
 
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import styled from '@emotion/native';
 
 import { ProductsContext } from '~src/context/products/ProductContext';
-import { Producto } from '~src/@types';
+import { Producto, ProductsStackParamsList } from '~src/@types';
 
-export const Products = () => {
+type Props = NativeStackScreenProps<ProductsStackParamsList, 'Products'>;
+
+export const Products = ({ navigation }: Props) => {
   const { products } = useContext(ProductsContext);
 
   // TODO: Make a pull to refresh for showing new products
-  const renderProductItem = ({ nombre }: Producto): JSX.Element => {
+  const renderProductItem = ({ ...props, nombre }: Producto): JSX.Element => {
     return (
-      <ProductContainer activeOpacity={0.8}>
+      <ProductContainer
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('Product')}>
         <ProductName>{nombre}</ProductName>
       </ProductContainer>
     );
