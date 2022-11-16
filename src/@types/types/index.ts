@@ -1,4 +1,4 @@
-import { Producto, RegisterData, User } from './../interfaces';
+import { Producto, RegisterData, User } from '~src/@types/interfaces';
 
 export type AuthContextProps = {
   errorMessage: string | null;
@@ -44,8 +44,9 @@ export type SignInData = {
 };
 
 export type ProductsContextProps = {
+  isGetting: boolean;
   products: Producto[];
-  loadProducts: () => Promise<void>;
+  loadProducts: (limit?: number) => Promise<void>;
   addProduct: (categoryId: string, productName: string) => Promise<void>;
   updateProduct: (
     categoryId: string,

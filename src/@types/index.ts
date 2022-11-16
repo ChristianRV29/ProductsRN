@@ -4,6 +4,7 @@ export type {
   SignInResponse,
   RegisterData,
   Producto,
+  ProductsResponse,
 } from './interfaces/index';
 
 export type {
