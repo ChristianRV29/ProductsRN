@@ -4,11 +4,19 @@ import { FlatList } from 'react-native';
 import styled from '@emotion/native';
 
 import { ProductsContext } from '~src/context/products/ProductContext';
+import { Producto } from '~src/@types';
 
 export const Products = () => {
   const { products } = useContext(ProductsContext);
 
   // TODO: Make a pull to refresh for showing new products
+  const renderProductItem = ({ nombre }: Producto): JSX.Element => {
+    return (
+      <ProductContainer activeOpacity={0.8}>
+        <ProductName>{nombre}</ProductName>
+      </ProductContainer>
+    );
+  };
 
   return (
     <Wrapper>
@@ -19,7 +27,7 @@ export const Products = () => {
         data={products}
         keyExtractor={product => product._id}
         ItemSeparatorComponent={() => <ItemSeparator />}
-        renderItem={({ item }) => <ProductName>{item.nombre}</ProductName>}
+        renderItem={({ item }) => renderProductItem(item)}
       />
     </Wrapper>
   );
@@ -42,7 +50,6 @@ const HeadlineContainer = styled.View`
   display: flex;
   height: 45px;
   justify-content: center;
-  margin-bottom: 10px;
 `;
 
 const Headline = styled.Text`
@@ -56,7 +63,15 @@ const ItemSeparator = styled.View`
   width: 100%;
 `;
 
+const ProductContainer = styled.TouchableOpacity`
+  align-items: flex-start;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  padding: 10px;
+`;
+
 const ProductName = styled.Text`
+  color: white;
   font-size: 18px;
-  color: red;
 `;
