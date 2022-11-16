@@ -1,4 +1,4 @@
-import { Producto, RegisterData, User } from '~src/@types/interfaces';
+import { Product, RegisterData, User } from '~src/@types/interfaces';
 
 export type AuthContextProps = {
   errorMessage: string | null;
@@ -45,7 +45,7 @@ export type SignInData = {
 
 export type ProductsContextProps = {
   isGetting: boolean;
-  products: Producto[];
+  products: Product[];
   loadProducts: (limit?: number) => Promise<void>;
   addProduct: (categoryId: string, productName: string) => Promise<void>;
   updateProduct: (
@@ -54,11 +54,13 @@ export type ProductsContextProps = {
     productId: string,
   ) => Promise<void>;
   deleteProduct: (productId: string) => Promise<void>;
-  loadProductById: (productId: string) => Promise<Producto>;
+  loadProductById: (productId: string) => Promise<Product>;
   updloadProductImage: (data: any, productId: string) => Promise<void>;
 };
 
 export type ProductsStackParamsList = {
   Products: undefined;
-  Product: undefined;
+  Product: {
+    product: Product;
+  };
 };
