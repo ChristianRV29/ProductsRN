@@ -1,4 +1,4 @@
-import { SignInData, Status } from '../types';
+import { SignInData, Status } from '~src/@types';
 
 export interface User {
   rol: string;

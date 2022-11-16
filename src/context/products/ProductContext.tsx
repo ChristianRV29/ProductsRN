@@ -1,15 +1,35 @@
-import React, { createContext, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { createContext, useEffect, useState } from 'react';
 
-import { Producto, ProductsContextProps } from '~src/@types';
+import { Producto, ProductsContextProps, ProductsResponse } from '~src/@types';
+import cafeApi from '~src/api';
 
 export const ProductsContext = createContext({} as ProductsContextProps);
 
 export const ProductsProvider = ({ children }: any) => {
   const [products, setProducts] = useState<Producto[]>([]);
+  const [gettingProducts, setGettingProducts] = useState<boolean>(true);
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
 
   const addProduct = async (categoryId: string, productName: string) => {};
 
-  const loadProducts = async () => {};
+  const loadProducts = async (limit: number = 10) => {
+    try {
+      const { data } = await cafeApi.get<ProductsResponse>(
+        `/productos?limite=${limit}`,
+      );
+      if (data && data.productos.length > 1) {
+        setGettingProducts(false);
+        setProducts([...products, ...data.productos]);
+      }
+    } catch (err: any) {
+      setGettingProducts(false);
+      console.log('loadProducts ~ It happened a problem: ', err.message || err);
+    }
+  };
 
   const updateProduct = async (
     categoryId: string,
@@ -28,6 +48,7 @@ export const ProductsProvider = ({ children }: any) => {
   return (
     <ProductsContext.Provider
       value={{
+        isGetting: gettingProducts,
         products,
         addProduct,
         loadProducts,
