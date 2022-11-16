@@ -8,6 +8,8 @@ import { ProductsContext } from '~src/context/products/ProductContext';
 export const Products = () => {
   const { products } = useContext(ProductsContext);
 
+  // TODO: Make a pull to refresh for showing new products
+
   return (
     <Wrapper>
       <HeadlineContainer>
@@ -16,6 +18,7 @@ export const Products = () => {
       <FlatList
         data={products}
         keyExtractor={product => product._id}
+        ItemSeparatorComponent={() => <ItemSeparator />}
         renderItem={({ item }) => <ProductName>{item.nombre}</ProductName>}
       />
     </Wrapper>
@@ -45,6 +48,12 @@ const HeadlineContainer = styled.View`
 const Headline = styled.Text`
   font-size: 20px;
   color: white;
+`;
+
+const ItemSeparator = styled.View`
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
 `;
 
 const ProductName = styled.Text`
