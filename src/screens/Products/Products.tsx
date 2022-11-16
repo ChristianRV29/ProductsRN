@@ -1,14 +1,28 @@
 import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
 
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import styled from '@emotion/native';
 
 import { ProductsContext } from '~src/context/products/ProductContext';
+import { Product, ProductsStackParamsList } from '~src/@types';
 
-export const Products = () => {
+type Props = NativeStackScreenProps<ProductsStackParamsList, 'Products'>;
+
+export const Products = ({ navigation }: Props) => {
   const { products } = useContext(ProductsContext);
 
   // TODO: Make a pull to refresh for showing new products
+  const renderProductItem = (product: Product): JSX.Element => {
+    const { nombre: name } = product;
+    return (
+      <ProductContainer
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('Product', { product })}>
+        <ProductName>{name}</ProductName>
+      </ProductContainer>
+    );
+  };
 
   return (
     <Wrapper>
@@ -19,7 +33,7 @@ export const Products = () => {
         data={products}
         keyExtractor={product => product._id}
         ItemSeparatorComponent={() => <ItemSeparator />}
-        renderItem={({ item }) => <ProductName>{item.nombre}</ProductName>}
+        renderItem={({ item }) => renderProductItem(item)}
       />
     </Wrapper>
   );
@@ -42,7 +56,6 @@ const HeadlineContainer = styled.View`
   display: flex;
   height: 45px;
   justify-content: center;
-  margin-bottom: 10px;
 `;
 
 const Headline = styled.Text`
@@ -56,7 +69,15 @@ const ItemSeparator = styled.View`
   width: 100%;
 `;
 
+const ProductContainer = styled.TouchableOpacity`
+  align-items: flex-start;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  padding: 10px;
+`;
+
 const ProductName = styled.Text`
+  color: white;
   font-size: 18px;
-  color: red;
 `;

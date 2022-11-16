@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useEffect, useState } from 'react';
 
-import { Producto, ProductsContextProps, ProductsResponse } from '~src/@types';
+import { Product, ProductsContextProps, ProductsResponse } from '~src/@types';
 import cafeApi from '~src/api';
 
 export const ProductsContext = createContext({} as ProductsContextProps);
 
 export const ProductsProvider = ({ children }: any) => {
-  const [products, setProducts] = useState<Producto[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [gettingProducts, setGettingProducts] = useState<boolean>(true);
 
   useEffect(() => {
