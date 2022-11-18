@@ -12,7 +12,7 @@ export const Product = ({ route }: Props) => {
   return (
     <View>
       <Text>Welcome to product screen</Text>
-      <Text>{product.nombre}</Text>
+      <Text>{JSON.stringify(product)}</Text>
     </View>
   );
 };
