@@ -1,5 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useEffect, useReducer } from 'react';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   AuthContextProps,
@@ -8,10 +9,8 @@ import {
   SignInResponse,
   RegisterData,
 } from '~src/@types';
-
 import cafeApi from '~src/api/index';
-
-import { authReducer } from './AuthReducer';
+import { authReducer } from '~src/context/auth/AuthReducer';
 
 const authInitialState: AuthState = {
   errorMessage: null,
